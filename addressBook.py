@@ -1,4 +1,3 @@
-
 class Contact:
     """
     This class is used to create contact objects
@@ -24,3 +23,8 @@ class AddressBookMain:
 
     def add_contact(self,contact):
         self.address_book.append(contact)
+
+
+x = AddressBookMain()
+x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))   
+    
