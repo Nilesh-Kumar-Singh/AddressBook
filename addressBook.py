@@ -30,9 +30,15 @@ class AddressBookMain:
                 self.address_book[i] = contact
                 print("Contact edited successfully")
                 break
-
+    def delete_contact(self,first_name,last_name):
+        for i in range(len(self.address_book)):
+            if self.address_book[i].first_name == first_name and self.address_book[i].last_name == last_name:
+                del self.address_book[i]
+                print("Contact deleted successfully")
+                break
 
 x = AddressBookMain()
 
 x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))  
 x.edit_contact("Raj","Kumar",Contact("Raj","Kumar","1234567890","rah@gmail.com","abc","xyz","abc","123456")) 
+x.delete_contact("Raj","Kumar")
