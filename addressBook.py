@@ -21,6 +21,7 @@ class AddressBookMain:
     def __init__(self, address_book_name):
         self.address_book = {}
         self.address_book_name = address_book_name
+        print("Address book created successfully")
     
     def check_duplicate(self,first_name):
         if self.address_book.get(first_name):
@@ -61,6 +62,11 @@ class AddressBookMain:
         for contact in contacts:
             self.add_contact(contact)
 
+    def search_by_city_or_state(self,city_or_state):
+        for contact in self.address_book.values():
+            if contact.city == city_or_state or contact.state == city_or_state:
+                print(contact.__dict__)
+
 
 class MultipleAddressBook:
     def __init__(self,address_book_name):
@@ -74,8 +80,9 @@ x.edit_contact("Raj",{"email":"as@gmail.com","last_name":"Kumar"})
 
 x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456")) 
 x.get_contact("Raj")
-
 x.delete_contact("Raj")
+
+x.search_by_city_or_state("abc")
 
 y = AddressBookMain("Address Book 2")
 y.add_contact(Contact("Raj","Kumar","1234567890","a@gmail.com","abc","xyz","abc","123456"))
