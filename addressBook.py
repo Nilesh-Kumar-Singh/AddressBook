@@ -53,11 +53,21 @@ class AddressBookMain:
         for contact in contacts:
             self.add_contact(contact)
 
+
+class MultipleAddressBook:
+    def __init__(self,address_book_name):
+        self.address_books = {}
+        self.address_book_name = address_book_name
+
 x = AddressBookMain("Address Book 1")
-
 x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))  
-
 x.get_contact("Raj")
 x.edit_contact("Raj",{"email":"as@gmail.com","last_name":"Kumar"}) 
 x.get_contact("Raj")
+
 x.delete_contact("Raj")
+
+y = AddressBookMain("Address Book 2")
+y.add_contact(Contact("Raj","Kumar","1234567890","a@gmail.com","abc","xyz","abc","123456"))
+
+z = MultipleAddressBook("Multiple Address Book")
