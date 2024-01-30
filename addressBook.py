@@ -21,8 +21,16 @@ class AddressBookMain:
     def __init__(self, address_book_name):
         self.address_book = {}
         self.address_book_name = address_book_name
+    
+    def check_duplicate(self,first_name):
+        if self.address_book.get(first_name):
+            print("Contact already exists")
+            return True
+        return False
 
     def add_contact(self,contact):
+        if self.check_duplicate(contact.first_name):
+            return
         self.address_book.update({contact.first_name:contact})
         print("Contact added successfully")
 
@@ -63,6 +71,8 @@ x = AddressBookMain("Address Book 1")
 x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))  
 x.get_contact("Raj")
 x.edit_contact("Raj",{"email":"as@gmail.com","last_name":"Kumar"}) 
+
+x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456")) 
 x.get_contact("Raj")
 
 x.delete_contact("Raj")
