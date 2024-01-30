@@ -12,6 +12,9 @@ class Contact:
         self.state = state
         self.zip_code = zip_code
 
+    def __repr__(self) -> str:
+        return self.first_name + " " + self.last_name + " " + self.phone_number + " " + self.email + " " + self.address + " " + self.city + " " + self.state + " " + self.zip_code
+
 
 
 class AddressBookMain:
@@ -63,15 +66,40 @@ class AddressBookMain:
             self.add_contact(contact)
 
     def search_by_city_or_state(self,city_or_state):
-        for contact in self.address_book.values():
-            if contact.city == city_or_state or contact.state == city_or_state:
-                print(contact.__dict__)
+        contacts = list(filter(lambda contact: contact.city == city_or_state or contact.state == city_or_state, self.address_book.values()))
+        print(contacts)
+
+    @staticmethod
+    def get_contact_details(contact,city_or_state):
+        if city_or_state in [contact.city,contact.state]:
+            print(contact.__dict__)     
+
+    def view_by_city_or_state(self,city_or_state):
+        list(map(lambda x: self.get_contact_details(x, city_or_state), self.address_book.values()))
 
 
 class MultipleAddressBook:
     def __init__(self,address_book_name):
         self.address_books = {}
         self.address_book_name = address_book_name
+
+    def check_duplicate(self,address_book_name):
+        if self.address_books.get(address_book_name):
+            print("Address book already exists")
+            return True
+        return False
+
+    def add_address_book(self,address_book):
+        if self.check_duplicate(address_book.address_book_name):
+            return
+        self.address_books.update({address_book.address_book_name:address_book})
+
+    def search_by_city_or_state(self,city_or_state):
+        # for address_book in self.address_books.values():
+        #     address_book.search_by_city_or_state(city_or_state)
+        list(map(lambda address_book: address_book.search_by_city_or_state(city_or_state), self.address_books.values()))
+
+    
 
 x = AddressBookMain("Address Book 1")
 x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))  
@@ -80,11 +108,15 @@ x.edit_contact("Raj",{"email":"as@gmail.com","last_name":"Kumar"})
 
 x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456")) 
 x.get_contact("Raj")
-x.delete_contact("Raj")
+#x.delete_contact("Raj")
 
 x.search_by_city_or_state("abc")
 
 y = AddressBookMain("Address Book 2")
-y.add_contact(Contact("Raj","Kumar","1234567890","a@gmail.com","abc","xyz","abc","123456"))
+y.add_contact(Contact("Ath","Kumar","1234567890","a@gmail.com","abc","xyz","abc","123456"))
 
 z = MultipleAddressBook("Multiple Address Book")
+z.add_address_book(x)
+z.add_address_book(y)
+z.search_by_city_or_state("abc")
+x.view_by_city_or_state("abcd")
