@@ -23,8 +23,16 @@ class AddressBookMain:
 
     def add_contact(self,contact):
         self.address_book.append(contact)
+    
+    def edit_contact(self,first_name,last_name, contact):
+        for i in range(len(self.address_book)):
+            if self.address_book[i].first_name == first_name and self.address_book[i].last_name == last_name:
+                self.address_book[i] = contact
+                print("Contact edited successfully")
+                break
 
 
 x = AddressBookMain()
-x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))   
-    
+
+x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))  
+x.edit_contact("Raj","Kumar",Contact("Raj","Kumar","1234567890","rah@gmail.com","abc","xyz","abc","123456")) 
