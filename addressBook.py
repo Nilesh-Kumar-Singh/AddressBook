@@ -18,27 +18,46 @@ class AddressBookMain:
     """
     This class is used to create address book objects
     """
-    def __init__(self):
-        self.address_book = []
+    def __init__(self, address_book_name):
+        self.address_book = {}
+        self.address_book_name = address_book_name
 
     def add_contact(self,contact):
-        self.address_book.append(contact)
-    
-    def edit_contact(self,first_name,last_name, contact):
-        for i in range(len(self.address_book)):
-            if self.address_book[i].first_name == first_name and self.address_book[i].last_name == last_name:
-                self.address_book[i] = contact
-                print("Contact edited successfully")
-                break
-    def delete_contact(self,first_name,last_name):
-        for i in range(len(self.address_book)):
-            if self.address_book[i].first_name == first_name and self.address_book[i].last_name == last_name:
-                del self.address_book[i]
-                print("Contact deleted successfully")
-                break
+        self.address_book.update({contact.first_name:contact})
+        print("Contact added successfully")
 
-x = AddressBookMain()
+    
+    def edit_contact(self,first_name,updated_contact={}):
+        contact = self.address_book.get(first_name)
+        if not contact:
+            print("Contact not found")
+            return
+        for key, value in updated_contact.items():
+            if getattr(contact,key):
+                setattr(contact,key,value)
+
+
+
+    def delete_contact(self,first_name):
+        self.address_book.pop(first_name)
+        print("Contact deleted successfully")
+
+    def get_contact(self,first_name):
+        contact = self.address_book.get(first_name)
+        if not contact:
+            print("Contact not found")
+            return
+        print(contact.__dict__)
+
+    def add_multiple_contacts(self,contacts):
+        for contact in contacts:
+            self.add_contact(contact)
+
+x = AddressBookMain("Address Book 1")
 
 x.add_contact(Contact("Raj","Kumar","1234567890","raj@gmail.com","abc","xyz","abc","123456"))  
-x.edit_contact("Raj","Kumar",Contact("Raj","Kumar","1234567890","rah@gmail.com","abc","xyz","abc","123456")) 
-x.delete_contact("Raj","Kumar")
+
+x.get_contact("Raj")
+x.edit_contact("Raj",{"email":"as@gmail.com","last_name":"Kumar"}) 
+x.get_contact("Raj")
+x.delete_contact("Raj")
